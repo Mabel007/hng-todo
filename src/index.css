@@ -1,0 +1,28 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@600;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: 'DM Sans', sans-serif;
+  --font-display: 'Space Grotesk', sans-serif;
+  --color-ink: #2b2622;
+  --color-muted: #817a73;
+  --color-line: #e9e4de;
+  --color-line-strong: #cfc6bc;
+  --color-coral: #e66f5d;
+  --color-sand: #f1eee9;
+  --color-peach: #fff0eb;
+}
+
+:root { font-family: var(--font-sans); color: var(--color-ink); background: #f8f7f4; font-synthesis: none; text-rendering: optimizeLegibility; }
+* { box-sizing: border-box; }
+body { margin: 0; min-width: 320px; background: radial-gradient(circle at 85% 0%, rgba(255, 240, 235, .8), transparent 32rem), #f8f7f4; }
+button, input { font: inherit; }
+button { cursor: pointer; }
+.font-display { font-family: var(--font-display); }
+.eyebrow { font-family: 'DM Mono', monospace; font-size: 10px; font-weight: 500; letter-spacing: .15em; text-transform: uppercase; color: var(--color-muted); }
+.brand-mark { display: flex; height: 30px; width: 30px; align-items: center; justify-content: center; border-radius: 10px; background: var(--color-coral); color: white; font-size: 16px; box-shadow: 0 5px 12px rgba(230,111,93,.25); }
+.text-coral { color: var(--color-coral); }
+.icon-button { display: flex; height: 30px; width: 30px; align-items: center; justify-content: center; border-radius: 8px; color: var(--color-muted); font-size: 16px; transition: color .2s, background .2s; }
+.icon-button:hover { background: var(--color-sand); color: var(--color-ink); }
+.icon-button.danger:hover { background: var(--color-peach); color: var(--color-coral); }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; } }

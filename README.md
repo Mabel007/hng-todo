@@ -12,6 +12,10 @@ A polished, responsive Todo application for managing everyday tasks with a calm,
 - Responsive mobile and desktop layouts
 - Accessible labels, keyboard interactions, and visible focus states
 - Helpful empty states for filtered and searched lists
+- Separate Notes workspace with multiline notes, editing, and undo for deletion
+- Notes persist separately in `localStorage` under `tidy-notes`
+- Tasks and Notes drafts remain intact when switching workspaces
+- Subtle interface motion that respects reduced-motion preferences
 
 ## Tech stack
 

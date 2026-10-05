@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import type { FormEvent } from 'react'
 import type { Filter, Task } from './types'
+import NotesView from './components/NotesView'
 
 const STORAGE_KEY = 'tidy-tasks'
 
@@ -20,6 +21,7 @@ function loadTasks(): Task[] {
 }
 
 function App() {
+  const [section, setSection] = useState<'tasks' | 'notes'>('tasks')
   const [tasks, setTasks] = useState<Task[]>(loadTasks)
   const [newTask, setNewTask] = useState('')
   const [editingId, setEditingId] = useState<string | null>(null)
@@ -98,8 +100,14 @@ function App() {
           </div>
         </header>
 
-        <section className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_280px] lg:items-start">
-          <div>
+        <nav aria-label="Workspace" className="workspace-nav mb-8 flex w-fit gap-1 rounded-xl bg-sand p-1">
+          {(['tasks', 'notes'] as const).map((item) => (
+            <button key={item} type="button" aria-pressed={section === item} aria-controls={`${item}-workspace`} onClick={() => setSection(item)} className={`workspace-button rounded-lg px-5 py-2.5 text-sm font-bold capitalize ${section === item ? 'bg-white text-ink shadow-sm' : 'text-muted'}`}>{item}</button>
+          ))}
+        </nav>
+        <div id="tasks-workspace" hidden={section !== 'tasks'} className="section-panel">
+        <section aria-label="Tasks" className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_280px] lg:items-start">
+          <div className="min-w-0">
             <form onSubmit={addTask} className="composer mb-8 flex items-center gap-3 rounded-2xl border border-line bg-white p-2 pl-4 shadow-[0_12px_35px_rgba(43,38,34,0.06)]">
               <span className="text-2xl font-light text-coral" aria-hidden="true">＋</span>
               <label className="sr-only" htmlFor="new-task">Add a new task</label>
@@ -108,7 +116,7 @@ function App() {
             </form>
 
             <div className="mb-5 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-              <div className="flex gap-1 rounded-xl bg-sand p-1" role="tablist" aria-label="Filter tasks">
+              <div className="task-filters flex gap-1 rounded-xl bg-sand p-1" role="tablist" aria-label="Filter tasks">
                 {(['all', 'active', 'completed'] as Filter[]).map((item) => (
                   <button key={item} type="button" role="tab" aria-selected={filter === item} onClick={() => setFilter(item)} className={`rounded-lg px-3 py-2 text-xs font-bold capitalize transition  focus-visible:outline-2 focus-visible:outline-coral ${filter === item ? 'bg-white text-ink shadow-sm' : 'text-muted hover:text-ink'}`}>
                     {item}
@@ -168,6 +176,10 @@ function App() {
             </div>
           </aside>
         </section>
+        </div>
+        <div id="notes-workspace" hidden={section !== 'notes'} className="section-panel">
+          <NotesView />
+        </div>
         <footer className="mt-14 flex items-center justify-between border-t border-line pt-5 text-xs text-muted"><span>Made for the everyday things.</span><span className="hidden sm:block">Your tasks stay on this device.</span></footer>
       </div>
     </main>
